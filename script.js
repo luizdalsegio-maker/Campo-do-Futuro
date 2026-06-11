@@ -1,53 +1,61 @@
-/* CSS para Agrinho 2026 */
-body {
-    font-family: 'Comic Sans MS', cursive, sans-serif;
-    background: linear-gradient(to bottom, #a8e6cf, #dcedc1); /* Verde claro e suave */
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+// script.js - Agrinho 2026
+
+const titulo = document.getElementById("nome");
+
+titulo.textContent = "Luiz Otavio Berlesi Dalsegio";
+
+const cores = [
+    "#2E7D32", // verde
+    "#43A047",
+    "#FDD835", // amarelo
+    "#FB8C00", // laranja
+    "#1E88E5", // azul
+    "#8E24AA"  // roxo
+];
+
+let indice = 0;
+
+function trocarCor() {
+    titulo.style.color = cores[indice];
+    titulo.style.textShadow = `0 0 20px ${cores[indice]}`;
+
+    indice++;
+    if (indice >= cores.length) {
+        indice = 0;
+    }
 }
 
-.container {
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.85);
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    animation: fadeIn 2s ease-in-out;
+setInterval(trocarCor, 500);
+
+// Criar emojis de natureza caindo
+function criarFolha() {
+    const folha = document.createElement("div");
+
+    folha.innerHTML = ["🌱", "🌿", "🌻", "🌾"][Math.floor(Math.random() * 4)];
+
+    folha.style.position = "fixed";
+    folha.style.left = Math.random() * window.innerWidth + "px";
+    folha.style.top = "-30px";
+    folha.style.fontSize = "30px";
+    folha.style.pointerEvents = "none";
+
+    document.body.appendChild(folha);
+
+    let posicao = -30;
+
+    const queda = setInterval(() => {
+        posicao += 5;
+        folha.style.top = posicao + "px";
+
+        if (posicao > window.innerHeight) {
+            clearInterval(queda);
+            folha.remove();
+        }
+    }, 50);
 }
 
-h1 {
-    font-size: 3rem;
-    color: #2e7d32; /* Verde mais escuro */
-    text-shadow: 2px 2px 5px #a5d6a7;
-    margin-bottom: 20px;
-}
+setInterval(criarFolha, 800);
+<h1>Agrinho 2026</h1>
+<h2 id="nome"></h2>
 
-h2 {
-    font-size: 2rem;
-    color: #ff6f00; /* Laranja vibrante */
-    text-shadow: 1px 1px 3px #ffd54f;
-}
-
-p {
-    font-size: 1.2rem;
-    color: #4e342e; /* Marrom escuro */
-    margin-top: 10px;
-}
-
-/* Animação simples */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Adicionando uma borda divertida */
-.container::before {
-    content: "🌱🌻🌾";
-    display: block;
-    font-size: 2rem;
-    margin-bottom: 15px;
-}
+<script src="script.js"></script>
